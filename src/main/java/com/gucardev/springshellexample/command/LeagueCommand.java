@@ -1,6 +1,6 @@
 package com.gucardev.springshellexample.command;
 
-import com.gucardev.springshellexample.config.TeamResponseFormatter;
+import com.gucardev.springshellexample.util.TeamResponseFormatter;
 import com.gucardev.springshellexample.model.LeagueResponse;
 import com.gucardev.springshellexample.remote.LeagueApiClient;
 import jakarta.validation.constraints.NotBlank;
@@ -23,8 +23,6 @@ public class LeagueCommand {
   public void leagueList() {
     List<LeagueResponse> scores =
         Objects.requireNonNull(leagueApiClient.getAllScores().getBody()).result();
-
-    // Print the table
     System.out.println(teamResponseFormatter.coverToTable(scores));
   }
 
@@ -38,7 +36,6 @@ public class LeagueCommand {
               defaultValue = ShellOption.NULL,
               arity = 1)
           String teamName) {
-    //      log.info("league response %s".formatted(team));
     return "league response %s".formatted(teamName);
   }
 }
