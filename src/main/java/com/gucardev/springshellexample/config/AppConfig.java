@@ -10,4 +10,9 @@ public class AppConfig {
   CLIExceptionResolver customExceptionResolver() {
     return new CLIExceptionResolver();
   }
+
+  @Bean
+  TeamResponseFormatter ouputFormatter(){
+    return new TeamResponseFormatter();
+  }
 }
