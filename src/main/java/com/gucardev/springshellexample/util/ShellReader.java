@@ -2,9 +2,7 @@ package com.gucardev.springshellexample.util;
 
 import java.util.List;
 import java.util.Locale;
-
 import org.jline.reader.LineReader;
-import org.springframework.stereotype.Component;
 
 public class ShellReader {
   private LineReader lineReader;

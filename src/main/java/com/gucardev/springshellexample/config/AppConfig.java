@@ -13,11 +13,6 @@ import org.springframework.shell.AvailabilityProvider;
 @Configuration
 public class AppConfig {
 
-  //  @Bean
-  //  public BCryptPasswordEncoder bCryptPasswordEncoder() {
-  //    return new BCryptPasswordEncoder();
-  //  }
-
   @Bean
   CLIExceptionResolver customExceptionResolver() {
     return new CLIExceptionResolver();

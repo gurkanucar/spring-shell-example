@@ -7,7 +7,6 @@ import org.springframework.shell.command.annotation.CommandScan;
 
 @EnableFeignClients
 @SpringBootApplication
-// @EnableCommand({TodoCommand.class})
 @CommandScan
 public class SpringShellExampleApplication {
 
