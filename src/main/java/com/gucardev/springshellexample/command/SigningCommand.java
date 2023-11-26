@@ -1,7 +1,10 @@
 package com.gucardev.springshellexample.command;
 
 import com.gucardev.springshellexample.util.ShellReader;
+import java.io.BufferedReader;
 import java.io.Console;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,10 +21,9 @@ public class SigningCommand {
   private final AuthenticationManager authenticationManager;
 
   @Command(command = "login", description = "login method")
-  public void login() {
-    Console console = System.console();
-    String username = console.readLine("Please enter your username: ");
-    String password = new String(console.readPassword("Please enter your password: "));
+  public void login() throws IOException {
+    String username = readInput("Please enter your username: ");
+    String password = readPassword("Please enter your password: ");
     Authentication request = new UsernamePasswordAuthenticationToken(username, password);
     try {
       Authentication result = authenticationManager.authenticate(request);
@@ -36,5 +38,20 @@ public class SigningCommand {
   public void logout() {
     SecurityContextHolder.clearContext();
     System.out.println("You have been logged out.");
+  }
+
+  private String readPassword(String prompt) throws IOException {
+    Console console = System.console();
+    if (console == null) {
+      return readInput(prompt);
+    } else {
+      return new String(console.readPassword(prompt));
+    }
+  }
+
+  private String readInput(String prompt) throws IOException {
+    System.out.print(prompt);
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    return reader.readLine();
   }
 }
