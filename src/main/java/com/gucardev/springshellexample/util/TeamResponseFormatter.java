@@ -10,6 +10,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public final class TeamResponseFormatter {
+  private static String[] toRow(LeagueResponse c) {
+    return new String[] {
+      "%s - %s".formatted(c.rank(), c.team()), c.lose(), c.win(), c.play(), c.point()
+    };
+  }
+
   public String coverToTable(List<LeagueResponse> teams) {
     var data = teams.stream().map(TeamResponseFormatter::toRow).collect(Collectors.toList());
     data.add(0, new String[] {"team", "lose", "win", "play", "point"});
@@ -18,11 +24,5 @@ public final class TeamResponseFormatter {
     TableBuilder table = new TableBuilder(model);
     table.addHeaderAndVerticalsBorders(BorderStyle.fancy_light);
     return table.build().render(100);
-  }
-
-  private static String[] toRow(LeagueResponse c) {
-    return new String[] {
-      "%s - %s".formatted(c.rank(), c.team()), c.lose(), c.win(), c.play(), c.point()
-    };
   }
 }

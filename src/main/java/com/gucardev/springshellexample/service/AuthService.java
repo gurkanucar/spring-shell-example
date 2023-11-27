@@ -1,30 +1,23 @@
-package com.gucardev.springshellexample.command;
+package com.gucardev.springshellexample.service;
 
 import com.gucardev.springshellexample.util.ShellPrinter;
-import com.gucardev.springshellexample.util.ShellReader;
-import java.io.IOException;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.shell.command.annotation.Command;
+import org.springframework.stereotype.Service;
 
-@Command(group = "Login Commands")
+@Service
 @RequiredArgsConstructor
-public class SigningCommand {
+public class AuthService {
 
-  private final ShellReader shellReader;
   private final AuthenticationManager authenticationManager;
   private final ShellPrinter printer;
 
-  @Command(command = "login", description = "login method")
-  public void login(
-      //  @Option(shortNames = 'u') String username, @Option(shortNames = 'p') String password
-      ) throws IOException {
-    String username = shellReader.readLine("Please enter your username");
-    String password = shellReader.readLinePassword("Please enter your password");
+  public void login(String username, String password) {
     Authentication request = new UsernamePasswordAuthenticationToken(username, password);
     try {
       Authentication result = authenticationManager.authenticate(request);
@@ -35,9 +28,20 @@ public class SigningCommand {
     }
   }
 
-  @Command(command = "logout", description = "Logout method")
   public void logout() {
     SecurityContextHolder.clearContext();
     printer.printInfo("You have been logged out.");
+  }
+
+  public boolean isLoggedIn() {
+    return (Objects.nonNull(SecurityContextHolder.getContext().getAuthentication())
+        && SecurityContextHolder.getContext().getAuthentication().isAuthenticated());
+  }
+
+  public String getLoggedInUsername() {
+    if (isLoggedIn()) {
+      return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+    return null;
   }
 }

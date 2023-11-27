@@ -24,14 +24,11 @@ public class SpringSecurityConfig {
 
   @Bean
   public AvailabilityProvider userLoggedInProvider() {
-    return () -> {
-      if (Objects.nonNull(SecurityContextHolder.getContext().getAuthentication())
-          && SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
-        return Availability.available();
-      } else {
-        return Availability.unavailable("You are not logged in.");
-      }
-    };
+    return () ->
+        (Objects.nonNull(SecurityContextHolder.getContext().getAuthentication())
+                && SecurityContextHolder.getContext().getAuthentication().isAuthenticated())
+            ? Availability.available()
+            : Availability.unavailable("You are not logged in.");
   }
 
   @Bean

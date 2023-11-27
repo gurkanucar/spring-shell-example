@@ -10,6 +10,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public final class PharmacyFormatter {
+  private static String[] toRow(PharmacyItem c) {
+    return new String[] {c.name(), c.address(), c.phone()};
+  }
+
   public String coverToTable(List<PharmacyItem> pharmacies) {
     var data = pharmacies.stream().map(PharmacyFormatter::toRow).collect(Collectors.toList());
     data.add(0, new String[] {"name", "address", "phone"});
@@ -18,9 +22,5 @@ public final class PharmacyFormatter {
     TableBuilder table = new TableBuilder(model);
     table.addHeaderAndVerticalsBorders(BorderStyle.fancy_light);
     return table.build().render(100);
-  }
-
-  private static String[] toRow(PharmacyItem c) {
-    return new String[] {c.name(), c.address(), c.phone()};
   }
 }
