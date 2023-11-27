@@ -2,6 +2,7 @@ package com.gucardev.springshellexample.command;
 
 import com.gucardev.springshellexample.model.LeagueResponse;
 import com.gucardev.springshellexample.remote.LeagueApiClient;
+import com.gucardev.springshellexample.util.ShellPrinter;
 import com.gucardev.springshellexample.util.TeamResponseFormatter;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -18,16 +19,17 @@ public class LeagueCommand {
 
   private final LeagueApiClient leagueApiClient;
   private final TeamResponseFormatter teamResponseFormatter;
+  private final ShellPrinter printer;
 
   @Command(command = "lg -l", description = "get list")
   public void leagueList() {
     List<LeagueResponse> scores =
         Objects.requireNonNull(leagueApiClient.getAllScores().getBody()).result();
-    System.out.println(teamResponseFormatter.coverToTable(scores));
+    printer.print(teamResponseFormatter.coverToTable(scores));
   }
 
   @Command(command = "lg team", description = "Get team by name")
-  public String team(
+  public void team(
       @NotBlank
           @Size(min = 2)
           @Option(
@@ -36,6 +38,6 @@ public class LeagueCommand {
               description = "team name..",
               arity = CommandRegistration.OptionArity.EXACTLY_ONE)
           String teamName) {
-    return "league response %s".formatted(teamName);
+    printer.print("league response %s".formatted(teamName));
   }
 }

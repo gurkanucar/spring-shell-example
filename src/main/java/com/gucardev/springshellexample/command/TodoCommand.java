@@ -2,6 +2,7 @@ package com.gucardev.springshellexample.command;
 
 import com.gucardev.springshellexample.model.Todo;
 import com.gucardev.springshellexample.service.TodoService;
+import com.gucardev.springshellexample.util.ShellPrinter;
 import com.gucardev.springshellexample.util.ShellReader;
 import com.gucardev.springshellexample.util.TodoFormatter;
 import java.util.List;
@@ -18,6 +19,7 @@ public class TodoCommand {
   private final TodoService todoService;
   private final TodoFormatter todoFormatter;
   private final ShellReader shellReader;
+  private final ShellPrinter printer;
 
   @CommandAvailability(provider = "userLoggedProvider")
   @Command(command = "todo -l", description = "get list")
@@ -34,12 +36,12 @@ public class TodoCommand {
     todo.setTitle(todoTitle);
     todo.setCompleted(isCompleted.equalsIgnoreCase("Y"));
     todoService.createTodo(todo);
-    System.out.println("todo added.");
+    printer.printInfo("todo added");
   }
 
   @CommandAvailability(provider = "userLoggedProvider")
   @Command(command = "todo -t", description = "toggle todo status")
-  public String toggleTodo(
+  public void toggleTodo(
       @Option(
               shortNames = 'i',
               longNames = "id",
@@ -47,12 +49,12 @@ public class TodoCommand {
               arity = CommandRegistration.OptionArity.EXACTLY_ONE)
           Long id) {
     todoService.toggleTodoStatus(id);
-    return "todo status changed. " + id;
+    printer.printInfo("todo status changed. " + id);
   }
 
   @CommandAvailability(provider = "userLoggedProvider")
   @Command(command = "todo -d", description = "delete todo")
-  public String deleteTodo(
+  public void deleteTodo(
       @Option(
               shortNames = 'i',
               longNames = "id",
@@ -60,6 +62,6 @@ public class TodoCommand {
               arity = CommandRegistration.OptionArity.EXACTLY_ONE)
           Long id) {
     todoService.deleteTodo(id);
-    return "todo deleted.";
+    printer.printInfo("todo deleted.");
   }
 }
