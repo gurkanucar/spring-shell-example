@@ -76,6 +76,21 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.jline</groupId>
+            <artifactId>jline-terminal-jna</artifactId>
+            <version>3.23.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.fusesource.jansi/jansi -->
+        <dependency>
+            <groupId>org.fusesource.jansi</groupId>
+            <artifactId>jansi</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+
+
+
     </dependencies>
     <dependencyManagement>
         <dependencies>

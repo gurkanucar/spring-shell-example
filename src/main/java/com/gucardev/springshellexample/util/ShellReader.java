@@ -40,4 +40,8 @@ public class ShellReader {
 
     return value;
   }
+
+  public String readLinePassword(String displayText) {
+    return lineReader.readLine(displayText + ": ", '*');
+  }
 }
