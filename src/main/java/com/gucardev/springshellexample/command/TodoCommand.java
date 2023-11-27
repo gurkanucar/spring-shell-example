@@ -21,13 +21,13 @@ public class TodoCommand {
   private final ShellReader shellReader;
   private final ShellPrinter printer;
 
-  @CommandAvailability(provider = "userLoggedProvider")
+  @CommandAvailability(provider = "userLoggedInProvider")
   @Command(command = "todo -l", description = "get list")
   public void getTodos() {
     System.out.println(todoFormatter.coverToTable(todoService.getAllTodos()));
   }
 
-  @CommandAvailability(provider = "userLoggedProvider")
+  @CommandAvailability(provider = "userLoggedInProvider")
   @Command(command = "todo -c", description = "create new")
   public void addTodo() {
     var todoTitle = shellReader.readLineRequired("Enter todo");
@@ -39,7 +39,7 @@ public class TodoCommand {
     printer.printInfo("todo added");
   }
 
-  @CommandAvailability(provider = "userLoggedProvider")
+  @CommandAvailability(provider = "userLoggedInProvider")
   @Command(command = "todo -t", description = "toggle todo status")
   public void toggleTodo(
       @Option(
@@ -52,7 +52,7 @@ public class TodoCommand {
     printer.printInfo("todo status changed. " + id);
   }
 
-  @CommandAvailability(provider = "userLoggedProvider")
+  @CommandAvailability(provider = "userLoggedInProvider")
   @Command(command = "todo -d", description = "delete todo")
   public void deleteTodo(
       @Option(

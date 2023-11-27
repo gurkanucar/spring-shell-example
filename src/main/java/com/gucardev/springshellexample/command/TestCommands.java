@@ -28,7 +28,7 @@ public class TestCommands {
     printer.print("Hello %s from public command!".formatted(name), Ansi.Color.CYAN);
   }
 
-  @CommandAvailability(provider = "userLoggedProvider")
+  @CommandAvailability(provider = "userLoggedInProvider")
   @Command(command = "private", description = "private command")
   public void privateCommand(
       @Option(required = false, defaultValue = "", shortNames = 'n') String name) {
