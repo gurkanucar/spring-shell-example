@@ -1,6 +1,6 @@
 package com.gucardev.springshellexample.util;
 
-import com.gucardev.springshellexample.model.LeagueResponse;
+import com.gucardev.springshellexample.model.PharmacyItem;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.shell.table.ArrayTableModel;
@@ -9,10 +9,10 @@ import org.springframework.shell.table.TableBuilder;
 import org.springframework.stereotype.Component;
 
 @Component
-public final class TeamResponseFormatter {
-  public String coverToTable(List<LeagueResponse> teams) {
-    var data = teams.stream().map(TeamResponseFormatter::toRow).collect(Collectors.toList());
-    data.add(0, new String[] {"team", "lose", "win", "play", "point"});
+public final class PharmacyFormatter {
+  public String coverToTable(List<PharmacyItem> pharmacies) {
+    var data = pharmacies.stream().map(PharmacyFormatter::toRow).collect(Collectors.toList());
+    data.add(0, new String[] {"name", "address", "phone"});
 
     ArrayTableModel model = new ArrayTableModel(data.toArray(Object[][]::new));
     TableBuilder table = new TableBuilder(model);
@@ -20,9 +20,7 @@ public final class TeamResponseFormatter {
     return table.build().render(100);
   }
 
-  private static String[] toRow(LeagueResponse c) {
-    return new String[] {
-      "%s - %s".formatted(c.rank(), c.team()), c.lose(), c.win(), c.play(), c.point()
-    };
+  private static String[] toRow(PharmacyItem c) {
+    return new String[] {c.name(), c.address(), c.phone()};
   }
 }
