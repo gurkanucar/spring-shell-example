@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public final class TodoFormatter {
   public String coverToTable(List<Todo> todos) {
     var data = todos.stream().map(TodoFormatter::toRow).collect(Collectors.toList());
-    data.add(0, addRow("id", "title", "completed"));
+    data.add(0, new String[] {"id", "title", "completed"});
 
     ArrayTableModel model = new ArrayTableModel(data.toArray(Object[][]::new));
     TableBuilder table = new TableBuilder(model);
@@ -21,14 +21,10 @@ public final class TodoFormatter {
   }
 
   private static String[] toRow(Todo c) {
-    return addRow(
-            c.getId().toString(),
-            c.getTitle(),
-            c.isCompleted() ? "\u00A0".repeat(4) + "✓" : "\u00A0".repeat(4) + "✗");
-  }
-
-
-  private static String[] addRow(String id, String title, String completed) {
-    return new String[] {id, title, completed};
+    return new String[] {
+      c.getId().toString(),
+      c.getTitle(),
+      c.isCompleted() ? "\u00A0".repeat(3) + "yes" : "\u00A0".repeat(3) + "no"
+    };
   }
 }

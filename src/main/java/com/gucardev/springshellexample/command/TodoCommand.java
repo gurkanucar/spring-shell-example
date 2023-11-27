@@ -10,11 +10,9 @@ import org.springframework.shell.command.CommandRegistration;
 import org.springframework.shell.command.annotation.Command;
 import org.springframework.shell.command.annotation.CommandAvailability;
 import org.springframework.shell.command.annotation.Option;
-import org.springframework.shell.standard.ShellComponent;
 
 @RequiredArgsConstructor
-@ShellComponent
-@Command(group = "Customer Commands")
+@Command(group = "Todo Commands")
 public class TodoCommand {
 
   private final TodoService todoService;

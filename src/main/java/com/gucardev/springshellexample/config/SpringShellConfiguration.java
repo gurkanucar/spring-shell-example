@@ -22,9 +22,9 @@ public class SpringShellConfiguration {
   private AttributedStyle determinePromptStyle() {
     if (SecurityContextHolder.getContext().getAuthentication() != null
         && SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
-      return AttributedStyle.DEFAULT.background(AttributedStyle.GREEN);
+      return AttributedStyle.DEFAULT.background(AttributedStyle.GREEN).foreground(AttributedStyle.BLACK);
     } else {
-      return AttributedStyle.DEFAULT.background(AttributedStyle.RED);
+      return AttributedStyle.DEFAULT.background(AttributedStyle.RED).foreground(AttributedStyle.WHITE);
     }
   }
 
