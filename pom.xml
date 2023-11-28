@@ -90,7 +90,6 @@
         </dependency>
 
 
-
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -112,6 +111,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>spring-shell-example</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
