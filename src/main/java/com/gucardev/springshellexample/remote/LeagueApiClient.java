@@ -1,13 +1,16 @@
 package com.gucardev.springshellexample.remote;
 
-import com.gucardev.springshellexample.model.SportApiResponse;
+import com.gucardev.springshellexample.model.ApiResponse;
+import com.gucardev.springshellexample.model.League;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@FeignClient(url = "http://172.24.240.1:8090/mock-handler/api", name = "leagueApi")
+@FeignClient(
+    url = "https://api.collectapi.com/sport/league?data.league=super-lig",
+    name = "leagueApi")
 public interface LeagueApiClient {
 
-  @GetMapping("/scores")
-  ResponseEntity<SportApiResponse> getAllScores();
+  @GetMapping
+  ResponseEntity<ApiResponse<League>> getAllScores();
 }

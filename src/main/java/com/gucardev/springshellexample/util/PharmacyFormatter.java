@@ -1,6 +1,6 @@
 package com.gucardev.springshellexample.util;
 
-import com.gucardev.springshellexample.model.PharmacyItem;
+import com.gucardev.springshellexample.model.Pharmacy;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.shell.table.ArrayTableModel;
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public final class PharmacyFormatter {
-  private static String[] toRow(PharmacyItem c) {
+  private static String[] toRow(Pharmacy c) {
     return new String[] {c.name(), c.address(), c.phone()};
   }
 
-  public String coverToTable(List<PharmacyItem> pharmacies) {
-    var data = pharmacies.stream().map(PharmacyFormatter::toRow).collect(Collectors.toList());
+  public String coverToTable(List<Pharmacy> items) {
+    var data = items.stream().map(PharmacyFormatter::toRow).collect(Collectors.toList());
     data.add(0, new String[] {"name", "address", "phone"});
 
     ArrayTableModel model = new ArrayTableModel(data.toArray(Object[][]::new));

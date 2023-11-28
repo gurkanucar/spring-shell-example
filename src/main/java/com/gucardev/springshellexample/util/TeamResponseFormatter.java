@@ -1,6 +1,6 @@
 package com.gucardev.springshellexample.util;
 
-import com.gucardev.springshellexample.model.LeagueResponse;
+import com.gucardev.springshellexample.model.League;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.shell.table.ArrayTableModel;
@@ -10,14 +10,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public final class TeamResponseFormatter {
-  private static String[] toRow(LeagueResponse c) {
+  private static String[] toRow(League c) {
     return new String[] {
       "%s - %s".formatted(c.rank(), c.team()), c.lose(), c.win(), c.play(), c.point()
     };
   }
 
-  public String coverToTable(List<LeagueResponse> teams) {
-    var data = teams.stream().map(TeamResponseFormatter::toRow).collect(Collectors.toList());
+  public String coverToTable(List<League> items) {
+    var data = items.stream().map(TeamResponseFormatter::toRow).collect(Collectors.toList());
     data.add(0, new String[] {"team", "lose", "win", "play", "point"});
 
     ArrayTableModel model = new ArrayTableModel(data.toArray(Object[][]::new));
